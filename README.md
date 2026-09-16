@@ -1,3 +1,5 @@
+<a id="top"></a>
+
 ![Banner do Projeto Integrador](./docs/assets/logo.png)
 
 <table align="center" width="100%">
@@ -111,153 +113,216 @@ O projeto busca resolver as fraquezas identificadas na ONG (gestão manual, risc
 ---
 
 <a id="o-manual"></a>
-### O MANUAL (REGRAS)
+### O MANUAL (GIT)
 
->Antes de digitar comandos, entenda os 4 termos principais usando uma analogia com jogos e edições de documentos:
->- Git (O "Save Point" local): É um programa instalado no seu computador. Ele funciona como o sistema de salvamento de um jogo: você cria pontos de restauração (commits) para os quais pode voltar se fizer besteira.
->- GitHub (A Nuvem / Google Drive do código): É o site onde o código do grupo fica guardado na internet. É para onde você envia seus "saves" locais para que seus colegas vejam.
->- main (A versão oficial que funciona): É a estrada principal do projeto. O código que está aqui tem que estar funcionando. Ninguém mexe direto nela!
->- branch (O seu "Rascunho" ou "Cópia de Trabalho"): É como se você tirasse uma xerox do projeto para desenhar ou programar em cima. Se você errar, a estrada principal (main) continua intacta.
->- Pull Request / PR (A "Autorização de Fusão"): É o pedido formal que você faz no site do GitHub dizendo: "Terminei minha parte na minha branch, alguém pode revisar e juntar com a main?".
+Este manual explica como baixar o projeto, trabalhar em uma tarefa e enviar suas alterações para revisão. **Faça a configuração inicial uma vez. Depois, escolha entre começar uma tarefa nova ou continuar uma tarefa existente.**
 
-### CONFIGURAÇÃO INICIAL
+#### Entenda os termos
 
-Se você nunca usou o Git no seu computador, siga estes passos antes de qualquer coisa:
+| Termo | O que significa |
+| :--- | :--- |
+| Git | Programa que controla o histórico de alterações no seu computador. |
+| GitHub | Site onde o grupo compartilha o repositório e revisa as alterações. |
+| `main` | Branch principal, que reúne o trabalho aprovado do grupo. |
+| Branch | Linha de trabalho separada para desenvolver uma tarefa. |
+| Commit | Registro local das alterações que você selecionou. Não envia nada ao GitHub. |
+| Push | Envio dos commits locais para o GitHub. |
+| Pull Request (PR) | Pedido para revisar e integrar as alterações de uma branch em outra. |
+| Merge | Integração das alterações de uma branch em outra. |
 
-**Passo 1** — Baixar e Instalar o Git
-- Acesse <https://git-scm.com> e baixe a versão para o seu sistema (Windows/Mac).
-- Na instalação, clique em Next em todas as etapas (pode manter as opções padrão).
+#### 1. Configuração inicial — faça uma vez
 
-**Passo 2** — Identificar-se no Git (Seu Nome de Autor)
-- Abra o programa Git Bash (se estiver no Windows) ou o Terminal da sua IDE (VS Code / Visual Studio) e digite os dois comandos abaixo (troque pelos seus dados do GitHub):
+**Instale e confira o Git.** Baixe pelo [site oficial do Git](https://git-scm.com/downloads). No Windows, você pode usar o Git Bash ou o terminal do VS Code (PowerShell). Depois de instalar, reabra o terminal e execute:
 
-```Bash
+```bash
+git --version
+```
+
+Se aparecer a versão instalada, continue.
+
+**Configure a autoria dos commits.** Substitua os exemplos pelo seu nome e por um e-mail associado à sua conta do GitHub (pode ser o endereço `noreply` disponível nas configurações de e-mail do GitHub):
+
+```bash
 git config --global user.name "Seu Nome Completo"
-git config --global user.email "seu-email-do-github@email.com"
+git config --global user.email "seu-email@example.com"
 ```
 
-**Passo 3** — Baixar o Projeto do Grupo para o seu Computador (Clonar)
-- Escolha uma pasta no seu computador onde guardará os projetos da faculdade (ex: C:\Projetos).
-- Abra o terminal nessa pasta e execute:
+Esses comandos definem a autoria dos commits; não fazem login. A opção `--global` aplica essa identidade aos seus repositórios neste computador.
 
-```Bash
-git clone https://github.com/SEU_GRUPO/NOME_DO_REPOSITORIO.git
+**Baixe o projeto.** Abra o terminal na pasta onde deseja guardar o projeto e execute:
+
+```bash
+git clone https://github.com/fatec-valentes-de-davi-grupo-04/Projeto-Integrador-Grupo-04.git
+cd Projeto-Integrador-Grupo-04
 ```
 
-- Entre na pasta criada:
+Se você já clonou o projeto, apenas abra a pasta existente. Não é necessário clonar novamente.
 
-```Bash
-cd NOME_DO_REPOSITORIO
-```
+> Execute os próximos comandos dentro dessa pasta. Para enviar alterações, sua conta precisa ter acesso de escrita ao repositório. Se o Git solicitar autenticação, conclua o login pelo gerenciador de credenciais/navegador. A senha da conta do GitHub não serve como senha do Git via HTTPS.
 
-- Sempre que você for sentar para trabalhar no projeto, siga estes passos na ordem exata:
+#### 2. Começar uma tarefa nova
 
-```Plaintext
-┌────────────────┐      ┌────────────────┐      ┌────────────────┐
-│ 1. Atualizar   │ ───> │ 2. Criar       │ ───> │ 3. Programar   │
-│    a Main      │      │    Sua Branch  │      │    no VS Code  │
-└────────────────┘      └────────────────┘      └────────────────┘
-                                                         │
-                                                         ▼
- ┌────────────────┐      ┌────────────────┐      ┌────────────────┐
- │ 6. Abrir PR    │ <─── │ 5. Enviar      │ <─── │ 4. Salvar      │
- │    no GitHub   │      │    para Nuvem  │      │    (Commit)    │
- └────────────────┘      └────────────────┘      └────────────────┘
-```
+**Confira se há trabalho pendente:**
 
-**Passo 4** — Preparar o Terreno (Antes de codar)
-- Garanta que você está na branch main e baixe a versão mais recente que seus colegas enviaram:
-
-```Bash
-git checkout main
-git pull origin main
-```
-
-**Passo 5** — Crie a sua branch individual para a tarefa que você vai fazer hoje:
-
-```Bash
-# Sintaxe: git checkout -b <tipo>/<nome-da-sua-tarefa>
-git checkout -b feature/tela-login
-```
-
-**Passo 6** — Desenvolver e Salvar Localmente
-- Faça o seu trabalho normal no editor/IDE (crie telas, scripts .sql, arquivos C#, etc.).
-- Ao terminar uma parte importante, abra o terminal e veja quais arquivos você alterou:
-
-```Bash
+```bash
 git status
 ```
-(Os arquivos modificados aparecerão em vermelho).
 
-**Passo 7** — Prepare os arquivos para serem salvos:
+Antes de trocar de branch, o resultado deve indicar que não há alterações pendentes (`working tree clean`). Se houver arquivos alterados, finalize e registre o trabalho na branch correspondente antes de continuar. Se você começou por engano na `main`, consulte “Problemas comuns” abaixo.
 
-```Bash
-git add .
-```
-(O ponto . significa "adicionar todos os arquivos que eu mudei").
+**Atualize a `main` e crie uma branch para a tarefa:**
 
-**Passo 8** — Faça o "Save" oficial no seu Git local, descrevendo o que fez:
-
-```Bash
-# Sintaxe: git commit -m "tipo(escopo): resumo do que você fez"
-git commit -m "feat(ui): cria tela de login e campos de e-mail e senha"
+```bash
+git switch main
+git pull --ff-only origin main
+git switch -c feature/tela-login
 ```
 
-**Passo 9** — Enviar para o GitHub e Pedir Aprovação
-- Envie sua branch local para o GitHub na internet:
+`feature/tela-login` é um exemplo: use um nome que descreva sua tarefa, seguindo a tabela de nomenclaturas no fim do manual. Use esse mesmo nome nos próximos comandos. O `--ff-only` evita que a atualização crie um merge inesperado; se o comando falhar, pare e confira a causa antes de continuar.
 
-```Bash
+**Pronto: faça suas alterações no editor e salve os arquivos.** Uma branch deve representar uma tarefa; não é necessário criar outra a cada dia de trabalho.
+
+#### 3. Registrar e enviar suas alterações
+
+**Confira a branch atual e revise o que mudou:**
+
+```bash
+git status
+git diff
+```
+
+O `git status` mostra a branch e os arquivos alterados. O `git diff` mostra mudanças ainda não preparadas em arquivos já rastreados; abra os arquivos novos no editor para revisá-los. Confira o resultado do seu trabalho e execute os testes aplicáveis antes de enviar.
+
+**Selecione os arquivos do commit.** Para uma alteração apenas no README, por exemplo:
+
+```bash
+git add README.md
+```
+
+Substitua `README.md` pelos caminhos dos arquivos da sua tarefa. Se quiser incluir todas as alterações da pasta atual e de suas subpastas, incluindo exclusões, use `git add .` após revisar a lista. Arquivos ignorados pelo Git não são incluídos normalmente. Não adicione senhas, tokens ou arquivos locais de configuração com credenciais.
+
+**Confira o que foi selecionado e faça o commit:**
+
+```bash
+git diff --cached
+git commit -m "docs: melhora o manual do Git"
+```
+
+A mensagem acima corresponde ao exemplo do README. Para uma tela de login, poderia ser `feat: cria tela de login`. Descreva o que você realmente alterou.
+
+**Envie a branch ao GitHub pela primeira vez:**
+
+```bash
 git push -u origin feature/tela-login
 ```
 
-**Passo 10** — Abra o navegador e vá para a página do repositório no GitHub.
-- Você verá um aviso amarelo no topo da tela escrito Compare & pull request. Clique nele!
-- No campo de descrição, escreva brevemente o que você fez.
-- Na lateral direita, em Reviewers, selecione 1 ou 2 colegas de grupo para revisarem.
-- Clique no botão verde Create pull request.
+Substitua pelo nome da sua branch. O `-u` vincula a branch local à branch remota; nos próximos envios dela, basta usar `git push`.
 
-### REVISÃO E VALIDAÇÃO
-**Passo 11 (Feito pelo Revisor):**
-- O revisor entra na aba Pull Requests do GitHub, lê o código enviado, verifica se está correto e clica no botão verde Confirm merge.
-- Passo 10 (Feito por Você após o Merge):
-- Agora que seu código já entrou na main oficial do grupo, limpe seu computador local:
+> Commit salva no histórico local. Push compartilha os commits no GitHub. Nenhum dos dois integra automaticamente seu trabalho à `main`.
 
-```Bash
-# 1. Volte para a main
-git checkout main
+#### 4. Abrir o Pull Request e pedir revisão
 
-# 2. Baixe a main atualizada (que agora contém a sua alteração)
-git pull origin main
+1. Abra o [repositório no GitHub](https://github.com/fatec-valentes-de-davi-grupo-04/Projeto-Integrador-Grupo-04).
+2. Clique em **Compare & pull request**, se aparecer. Caso contrário, entre em **Pull requests → New pull request**.
+3. Confira a direção: **base: `main`** (destino) e **compare: sua branch** (origem).
+4. Escreva um título claro e explique o que mudou e como você verificou o resultado.
+5. Confira os arquivos e commits incluídos. Se aparecer trabalho que não pertence à tarefa, revise antes de prosseguir.
+6. Clique em **Create pull request** e solicite a revisão de um ou dois colegas em **Reviewers**, quando disponível.
 
-# 3. Apague a branch temporária que você usou
+**Para quem revisa:** confira a aba **Files changed**, avalie o funcionamento quando aplicável e envie a revisão em **Review changes**, usando **Approve** para aprovar ou **Request changes** para pedir ajustes.
+
+**Aprovar e fazer merge são ações diferentes.** Depois da aprovação e das verificações exigidas pelo repositório, a pessoa responsável, com permissão, faz o merge pelo botão disponível e confirma a operação. A aprovação, sozinha, não integra o código à `main`.
+
+Se pedirem ajustes, altere os arquivos na **mesma branch**, faça outro commit e execute `git push`. O PR aberto é atualizado automaticamente; não crie outro PR para esses ajustes.
+
+#### 5. Continuar uma tarefa existente
+
+Use este caminho quando sua tarefa ainda não foi integrada à `main`.
+
+Confira `git status` e resolva alterações pendentes antes de trocar de branch. Depois:
+
+```bash
+git switch feature/tela-login
+```
+
+Se a branch já foi enviada ao GitHub e tem o vínculo configurado com `-u`, atualize-a:
+
+```bash
+git pull --ff-only
+```
+
+Esse comando atualiza sua branch com a versão dela no GitHub; não traz automaticamente as novidades da `main`. Se a branch ainda existe apenas no seu computador, pule esse comando.
+
+Continue editando e repita a etapa 3 para revisar, selecionar arquivos e fazer commit. Se já fez o primeiro envio com `-u`, envie os novos commits com:
+
+```bash
+git push
+```
+
+#### 6. Depois que o PR for integrado
+
+Confirme no GitHub que o PR está marcado como **Merged**. Com o trabalho local salvo em commits e enviado, volte à branch principal e atualize:
+
+```bash
+git switch main
+git pull --ff-only origin main
+```
+
+Opcionalmente, apague a branch local da tarefa concluída:
+
+```bash
 git branch -d feature/tela-login
 ```
 
-### REGRAS DE VERSIONAMENTO DO GRUPO
-Para o repositório não virar uma bagunça, **todo o grupo DEVE seguir estas nomenclaturas:**
+Esse comando apaga somente a branch local. Se o Git recusar a exclusão, mantenha a branch e confira o PR e seus commits; isso também pode acontecer após um *squash merge*. Não force a exclusão sem conferir se há trabalho que precisa ser preservado.
 
-**Nomes de Branches**
-| O que você vai fazer? | Prefixo da Branch | Exemplo Real |
-| :------------------- | :--------------- | :---------- |
-| Criar tela ou código novo | feature/ | feature/cadastro-assistido |
-| Trabalhar no banco de dados | db/ | db/script-tabela-frequencia |
-| Corrigir um erro/bug | fix/ | fix/erro-conexao-mysql |
-| Atualizar documentação | docs/ | docs/atualiza-readme
+Para a próxima tarefa, crie uma nova branch a partir da `main` atualizada, como na etapa 2.
 
-### Mensagens de Commit (Conventional Commits Simplificado)
-Sempre comece a mensagem do commit com uma destas palavras em minúsculo:
+#### Problemas comuns
 
-- feat: Para novas funcionalidades ou telas.
-```Ex: git commit -m "feat: cria tela de chamada dos alunos"```
+| Situação | Como agir |
+| :--- | :--- |
+| `git` não é reconhecido | Instale o Git, reabra o terminal e confira `git --version`. |
+| `not a git repository` | Abra o terminal dentro da pasta clonada do projeto. |
+| A branch já existe | Use `git switch nome-da-branch` para continuar nela, ou escolha outro nome se for uma tarefa nova. |
+| `nothing to commit` | Salve os arquivos no editor e confira `git status`. Talvez não haja mudanças novas ou falte selecioná-las com `git add`. |
+| Não consegue autenticar ou recebe `403` ao enviar | Confira a conta usada no login e peça ao responsável pelo repositório para verificar seu acesso de escrita. |
+| O push foi rejeitado ou o pull não permite fast-forward | Não use `--force`. Confira `git status` e peça ajuda ao grupo para conciliar os históricos sem perder commits. |
+| O Git impede a troca de branch por alterações locais | Registre o trabalho na branch correta antes de trocar; não descarte arquivos para contornar o aviso. |
 
-- db: Para scripts SQL e banco.
-```Ex: git commit -m "db: cria script ddl de cadastro de voluntarios"```
+**Comecei a editar na `main`, mas ainda não fiz commit.** Crie a branch da tarefa antes de registrar as alterações:
 
-- fix: Para correção de bugs.
-```Ex: git commit -m "fix: corrige alinhamento do botao na tela principal"```
+```bash
+git switch -c feature/minha-tarefa
+```
 
-- docs: Para documentação e textos do README.
-```Ex: git commit -m "docs: insere diagrama conceitual no readme"```
+As alterações locais acompanham a nova branch. Continue pela etapa 3. Se já fez commits na `main`, peça ajuda ao grupo para transferi-los sem perder trabalho.
+
+**O PR tem conflitos com a `main`.** Primeiro, na branch da tarefa, salve e registre suas alterações pendentes. Com `git status` indicando que não há alterações pendentes, execute:
+
+```bash
+git fetch origin
+git merge origin/main
+```
+
+Se houver conflitos, o Git informará os arquivos. Abra cada um, combine as alterações necessárias e remova os marcadores `<<<<<<<`, `=======` e `>>>>>>>`. Confira o resultado com o colega responsável pelo trecho em caso de dúvida. Depois de resolver e testar, selecione os arquivos resolvidos com `git add caminho-do-arquivo`, execute `git commit` e envie com `git push`.
+
+Se o merge terminar automaticamente, basta conferir o resultado e enviar com `git push`. Se precisar cancelar uma tentativa de merge ainda em andamento, use `git merge --abort` antes de fazer o commit de resolução.
+
+#### Nomenclaturas do grupo
+
+Use nomes de branches sem espaços e sem acentos, com palavras separadas por hífen.
+
+| Tipo de tarefa | Exemplo de branch | Exemplo de mensagem de commit |
+| :--- | :--- | :--- |
+| Nova funcionalidade | `feature/cadastro-assistido` | `feat: cria cadastro de assistido` |
+| Banco de dados | `db/tabela-frequencia` | `db: cria tabela de frequencia` |
+| Correção de erro | `fix/conexao-mysql` | `fix: corrige conexao com o banco` |
+| Documentação | `docs/atualiza-readme` | `docs: atualiza manual do Git` |
+
+O escopo é opcional: `feat(ui): cria tela de login` também é válido. O prefixo `db` é uma convenção adotada pelo grupo para alterações de banco de dados.
+
+**Combinado do grupo:** desenvolva em uma branch por tarefa, envie um PR para a `main` e aguarde revisão antes do merge. Não faça push diretamente para a `main`.
 
 <div align="right">
   <a href="#top">Voltar ao Topo</a>
