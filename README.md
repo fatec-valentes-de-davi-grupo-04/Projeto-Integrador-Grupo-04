@@ -12,9 +12,6 @@
       <a href="#o-projeto"><b>O PROJETO</b></a>
     </td>
     <td align="center" width="20%">
-      <a href="#o-backlog"><b>O BACKLOG</b></a>
-    </td>
-    <td align="center" width="20%">
       <a href="#o-manual"><b>O MANUAL (GIT)</b></a>
     </td>
     <td align="center" width="20%">
@@ -112,46 +109,7 @@ O projeto busca resolver as fraquezas identificadas na ONG (gestão manual, risc
 </div>
 
 ---
-<a id="o-backlog"></a>
-### O BACKLOG
 
-O projeto segue um fluxo incremental estruturado em 6 etapas de desenvolvimento até a entrega da aplicação desktop final.
-
-| Fase | Etapa | Descrição / Atividades | Status |
-| :---: | :--- | :--- | :---: |
-| **01** | **Modelagem de Dados** | Criação dos Diagramas Conceitual e Lógico (MySQL) | 🟢 Concluído |
-| **02** | **Construção do Banco** | Geração do script DDL inicial e refinamento de tabelas | 🟡 Em Andamento |
-| **03** | **Prototipagem UI** | Design e validação das telas desktop com os stakeholders | 🔴 A Fazer |
-| **04** | **Desenvolvimento Frontend** | Implementação das interfaces e componentes visuais | 🔴 A Fazer |
-| **05** | **Desenvolvimento Backend** | Conexão com banco de dados MySQL e teste do CRUD inicial | 🔴 A Fazer |
-| **06** | **Sistema Final** | Integração completa, testes de aceitação e empacotamento | 🔴 A Fazer |
-
-### Backlog de Funcionalidades (Módulos do Sistema)
-
-#### 1. Módulo de Gestão de Cadastros e Matrículas
-- [ ] **[RF01] Cadastro de Assistidos e Responsáveis:** Registro completo de dados pessoais, socioeconômicos e de contato.
-- [ ] **[RF02] Anexo de Documentos Digitais:** Upload e armazenamento seguro de documentos comprobatórios.
-- [ ] **[RF03] Termo de Responsabilidade:** Geração automática e armazenamento do documento assinado.
-- [ ] **[RF04] Matrícula Única:** Módulo gerador de identificador único automático para cada aluno no sistema.
-
-#### 2. Módulo de Controle de Frequência
-- [ ] **[RF05] Diário de Classe Digital:** Interface simplificada para voluntários registrarem presença/falta de forma ágil.
-- [ ] **[RF06] Histórico de Frequência:** Consulta de histórico individual e por turma de alunos.
-
-#### 3. Módulo de Prevenção de Evasão e Gestão
-- [ ] **[RF07] Regras de Evasão:** Configuração do limite predefinido de faltas toleradas por turma.
-- [ ] **[RF08] Alertas Automáticos:** Disparo de notificações e relatórios de risco de evasão para a Diretoria da ONG.
-- [ ] **[RF09] Dashboard Operacional:** Visão geral com estatísticas de matrículas, chamadas diárias e alunos em alerta.
-
-#### 4. Módulo de Infraestrutura e Segurança
-- [ ] **[RNF01] Autenticação e Perfis (RBAC):** Níveis de acesso diferenciados para Voluntários, Assistentes Sociais e Diretoria.
-- [ ] **[RNF02] Persistência de Dados:** Conexão segura com banco MySQL e integridade referencial.
-
-<div align="right">
-  <a href="#top">Voltar ao Topo</a>
-</div>
-
----
 <a id="o-manual"></a>
 ### O MANUAL (REGRAS)
 
