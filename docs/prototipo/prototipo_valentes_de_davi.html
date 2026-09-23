@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Protótipo - Valentes de Davi</title>
+<style>
+:root{
+  --primary:#1D4ED8; --primary-dark:#1E3A8A; --secondary:#F59E0B;
+  --success:#16A34A; --error:#DC2626; --warning:#EA580C;
+  --bg:#F8FAFC; --surface:#FFFFFF; --text:#0F172A; --muted:#475569; --border:#CBD5E1;
+  --radius:12px; --shadow:0 8px 24px rgba(15,23,42,.08);
+}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select{font:inherit}.hidden{display:none!important}
+.app{min-height:100vh}.login{min-height:100vh;display:grid;grid-template-columns:1.05fr .95fr;background:#fff}
+.brand-panel{background:linear-gradient(145deg,var(--primary-dark),var(--primary));color:#fff;padding:64px;display:flex;flex-direction:column;justify-content:space-between}
+.brand-mark{display:flex;align-items:center;gap:14px;font-weight:800;font-size:24px}.logo{width:48px;height:48px;border-radius:14px;background:#fff;color:var(--primary);display:grid;place-items:center;font-weight:900}
+.brand-copy h1{font-size:48px;line-height:1.06;margin:0 0 18px}.brand-copy p{font-size:19px;line-height:1.6;max-width:560px;color:#dbeafe}
+.login-panel{display:grid;place-items:center;padding:40px}.login-card{width:min(440px,100%);background:#fff;border:1px solid #e2e8f0;border-radius:18px;box-shadow:var(--shadow);padding:34px}
+.login-card h2{font-size:30px;margin:0 0 8px}.sub{color:var(--muted);margin-bottom:26px}.field{margin-bottom:18px}.field label{display:block;font-size:14px;font-weight:700;margin-bottom:8px}.field input,.field select{width:100%;height:48px;border:1px solid var(--border);border-radius:8px;padding:0 14px;outline:none;background:#fff}.field input:focus,.field select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(29,78,216,.12)}
+.btn{height:48px;border:0;border-radius:8px;padding:0 18px;font-weight:700;cursor:pointer}.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-dark)}.btn-secondary{background:#fff;border:1px solid var(--border);color:var(--text)}.btn-danger{background:#fee2e2;color:#991b1b}.full{width:100%}.login-foot{font-size:12px;text-align:center;color:#64748b;margin-top:18px}
+.shell{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.sidebar{background:#0f172a;color:#cbd5e1;padding:22px 16px;position:sticky;top:0;height:100vh}.side-brand{display:flex;align-items:center;gap:10px;padding:8px 8px 24px;color:#fff;font-weight:800}.side-brand .logo{width:38px;height:38px;border-radius:10px}
+.nav{display:flex;flex-direction:column;gap:6px}.nav button{border:0;background:transparent;color:#cbd5e1;text-align:left;padding:12px 14px;border-radius:8px;cursor:pointer}.nav button:hover,.nav button.active{background:#1e293b;color:#fff}.nav small{padding:18px 14px 6px;color:#64748b;text-transform:uppercase;letter-spacing:.08em}
+.main{padding:28px 30px 50px}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}.topbar h1{margin:0;font-size:30px}.user-chip{display:flex;align-items:center;gap:10px}.avatar{width:38px;height:38px;border-radius:50%;background:#dbeafe;color:var(--primary);display:grid;place-items:center;font-weight:800}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:#fff;border:1px solid #e2e8f0;border-radius:var(--radius);box-shadow:0 2px 8px rgba(15,23,42,.04);padding:20px}.metric .label{color:var(--muted);font-size:14px}.metric .value{font-size:30px;font-weight:800;margin-top:8px}.metric .trend{font-size:12px;margin-top:8px}.ok{color:var(--success)}.warn{color:var(--warning)}
+.two-col{display:grid;grid-template-columns:1.4fr .9fr;gap:18px;margin-top:18px}.section-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.section-title h3{margin:0;font-size:18px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:12px 10px;border-bottom:1px solid #e2e8f0;text-align:left;font-size:14px}th{font-size:12px;color:#64748b;text-transform:uppercase}.badge{display:inline-flex;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:700}.badge-green{background:#dcfce7;color:#166534}.badge-orange{background:#ffedd5;color:#9a3412}.badge-red{background:#fee2e2;color:#991b1b}.badge-blue{background:#dbeafe;color:#1e40af}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}.toolbar input{height:42px;border:1px solid var(--border);border-radius:8px;padding:0 12px;min-width:260px}.spacer{flex:1}
+.form-card{max-width:920px}.steps{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}.step{padding:8px 12px;border-radius:999px;background:#e2e8f0;color:#475569;font-size:13px;font-weight:700}.step.active{background:#dbeafe;color:#1d4ed8}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.form-grid .wide{grid-column:1/-1}.actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}
+.upload{border:2px dashed var(--border);border-radius:12px;padding:28px;text-align:center;color:var(--muted);background:#f8fafc}.call-list{display:flex;flex-direction:column;gap:10px}.student{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:10px;padding:12px;border:1px solid #e2e8f0;border-radius:10px}.student .name{font-weight:700}.toggle{display:flex;gap:6px}.toggle button{height:34px;border-radius:8px;border:1px solid var(--border);background:#fff;cursor:pointer}.toggle .present{background:#dcfce7;color:#166534;border-color:#86efac}.toggle .absent{background:#fee2e2;color:#991b1b;border-color:#fecaca}
+.alert{padding:14px 16px;border-radius:10px;margin-bottom:14px}.alert-info{background:#eff6ff;color:#1e40af}.alert-error{background:#fef2f2;color:#991b1b}.empty{padding:50px 20px;text-align:center;color:#64748b}.modal-back{position:fixed;inset:0;background:rgba(15,23,42,.45);display:grid;place-items:center;padding:20px}.modal{width:min(480px,100%);background:white;border-radius:16px;padding:24px;box-shadow:var(--shadow)}
+.ds-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.swatch{border-radius:12px;overflow:hidden;border:1px solid #e2e8f0}.swatch .color{height:74px}.swatch .meta{padding:10px;background:#fff;font-size:12px}.component-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.sample-input{width:280px}.mobile-preview{display:none}
+@media (max-width: 900px){.login{grid-template-columns:1fr}.brand-panel{display:none}.shell{grid-template-columns:1fr}.sidebar{position:relative;height:auto}.nav{display:grid;grid-template-columns:repeat(3,1fr)}.nav small{display:none}.main{padding:20px}.grid4{grid-template-columns:1fr 1fr}.two-col{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.ds-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width: 560px){.grid4{grid-template-columns:1fr}.nav{grid-template-columns:1fr 1fr}.toolbar input{min-width:0;width:100%}.spacer{display:none}.topbar{align-items:flex-start}.topbar h1{font-size:24px}.user-chip span{display:none}}
+</style>
+</head>
+<body>
+<div id="loginScreen" class="app login">
+  <section class="brand-panel">
+    <div class="brand-mark"><div class="logo">VD</div>Valentes de Davi</div>
+    <div class="brand-copy"><h1>Gestão simples para transformar mais vidas.</h1><p>Centralize cadastros, frequência e alertas de evasão em uma plataforma segura, acessível e organizada.</p></div>
+    <div style="color:#bfdbfe;font-size:13px">Projeto Integrador · Fatec Franca</div>
+  </section>
+  <section class="login-panel"><div class="login-card">
+    <h2>Entrar</h2><div class="sub">Acesse sua conta para continuar.</div>
+    <div class="field"><label>E-mail</label><input id="email" placeholder="Digite seu e-mail"></div>
+    <div class="field"><label>Senha</label><input type="password" placeholder="Digite sua senha"></div>
+    <div style="text-align:right;margin:-4px 0 18px"><a href="#" style="color:var(--primary);font-size:13px">Esqueci minha senha</a></div>
+    <button class="btn btn-primary full" onclick="enterApp()">Entrar</button>
+    <div class="login-foot">Acesso restrito à equipe autorizada.</div>
+  </div></section>
+</div>
+
+<div id="system" class="shell hidden">
+  <aside class="sidebar">
+    <div class="side-brand"><div class="logo">VD</div>Valentes de Davi</div>
+    <div class="nav">
+      <button class="active" onclick="showPage('dashboard',this)">Dashboard</button>
+      <button onclick="showPage('assistidos',this)">Assistidos</button>
+      <button onclick="showPage('cadastro',this)">Cadastrar assistido</button>
+      <button onclick="showPage('frequencia',this)">Frequência</button>
+      <button onclick="showPage('alertas',this)">Alertas de evasão</button>
+      <small>Projeto</small>
+      <button onclick="showPage('design',this)">Design System</button>
+      <button onclick="logout()">Sair</button>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="topbar"><div><h1 id="pageTitle">Dashboard</h1><div style="color:#64748b;font-size:14px;margin-top:4px">Visão geral da operação da ONG</div></div><div class="user-chip"><div class="avatar">BS</div><span>Brendon Silva</span></div></div>
+
+    <section id="dashboard" class="page">
+      <div class="grid4">
+        <div class="card metric"><div class="label">Total de assistidos</div><div class="value">126</div><div class="trend ok">+8 neste mês</div></div>
+        <div class="card metric"><div class="label">Presença média</div><div class="value">94%</div><div class="trend ok">+2,4% vs. mês anterior</div></div>
+        <div class="card metric"><div class="label">Alertas de evasão</div><div class="value">8</div><div class="trend warn">3 exigem atenção</div></div>
+        <div class="card metric"><div class="label">Cadastros pendentes</div><div class="value">5</div><div class="trend">Documentação incompleta</div></div>
+      </div>
+      <div class="two-col">
+        <div class="card"><div class="section-title"><h3>Frequência recente</h3><span class="badge badge-blue">Hoje</span></div><div class="table-wrap"><table><thead><tr><th>Turma</th><th>Horário</th><th>Presentes</th><th>Presença</th></tr></thead><tbody><tr><td>Sub-10</td><td>18:00</td><td>23/25</td><td><span class="badge badge-green">92%</span></td></tr><tr><td>Sub-12</td><td>19:00</td><td>24/25</td><td><span class="badge badge-green">96%</span></td></tr><tr><td>Sub-14</td><td>20:00</td><td>20/24</td><td><span class="badge badge-orange">83%</span></td></tr></tbody></table></div></div>
+        <div class="card"><div class="section-title"><h3>Risco de evasão</h3><button class="btn btn-secondary" onclick="showPage('alertas')">Ver todos</button></div><div style="display:flex;flex-direction:column;gap:12px"><div><b>Lucas Ferreira</b><div style="font-size:13px;color:#64748b">5 faltas consecutivas</div></div><div><b>Ana Clara</b><div style="font-size:13px;color:#64748b">4 faltas no mês</div></div><div><b>João Pedro</b><div style="font-size:13px;color:#64748b">75% de frequência</div></div></div></div>
+      </div>
+    </section>
+
+    <section id="assistidos" class="page hidden">
+      <div class="toolbar"><input placeholder="Buscar por nome, matrícula ou responsável"><select><option>Todas as turmas</option><option>Sub-10</option><option>Sub-12</option></select><div class="spacer"></div><button class="btn btn-primary" onclick="showPage('cadastro')">+ Novo assistido</button></div>
+      <div class="card"><div class="table-wrap"><table><thead><tr><th>Assistido</th><th>Matrícula</th><th>Turma</th><th>Responsável</th><th>Status</th></tr></thead><tbody><tr><td><b>Lucas Ferreira</b><br><span style="color:#64748b">10 anos</span></td><td>VD-00126</td><td>Sub-10</td><td>Mariana Ferreira</td><td><span class="badge badge-green">Ativo</span></td></tr><tr><td><b>Ana Clara Souza</b><br><span style="color:#64748b">11 anos</span></td><td>VD-00125</td><td>Sub-12</td><td>Renato Souza</td><td><span class="badge badge-orange">Atenção</span></td></tr><tr><td><b>João Pedro Lima</b><br><span style="color:#64748b">13 anos</span></td><td>VD-00124</td><td>Sub-14</td><td>Patrícia Lima</td><td><span class="badge badge-green">Ativo</span></td></tr></tbody></table></div></div>
+    </section>
+
+    <section id="cadastro" class="page hidden">
+      <div class="card form-card">
+        <div class="steps"><span class="step active">1. Assistido</span><span class="step">2. Responsável</span><span class="step">3. Documentos</span><span class="step">4. Revisão</span></div>
+        <div class="alert alert-info">Preencha os dados básicos do assistido. Os campos marcados são obrigatórios.</div>
+        <div class="form-grid">
+          <div class="field wide"><label>Nome completo</label><input placeholder="Nome do assistido"></div>
+          <div class="field"><label>Data de nascimento</label><input type="date"></div>
+          <div class="field"><label>Turma</label><select><option>Selecione</option><option>Sub-10</option><option>Sub-12</option><option>Sub-14</option></select></div>
+          <div class="field"><label>CPF (se houver)</label><input placeholder="000.000.000-00"></div>
+          <div class="field"><label>Telefone</label><input placeholder="(16) 99999-9999"></div>
+          <div class="field wide"><label>Endereço</label><input placeholder="Rua, número, bairro"></div>
+          <div class="field wide"><label>Documentos</label><div class="upload"><b>Arraste arquivos aqui</b><br><span style="font-size:13px">RG, CPF, comprovante e termo de responsabilidade</span></div></div>
+        </div>
+        <div class="actions"><button class="btn btn-secondary">Salvar rascunho</button><button class="btn btn-primary" onclick="showSuccess()">Continuar</button></div>
+      </div>
+    </section>
+
+    <section id="frequencia" class="page hidden">
+      <div class="toolbar"><select><option>Turma Sub-10</option><option>Turma Sub-12</option></select><input type="date" value="2026-09-23"><div class="spacer"></div><button class="btn btn-primary" onclick="showSuccess('Frequência registrada com sucesso!')">Salvar chamada</button></div>
+      <div class="card"><div class="section-title"><h3>Lista de chamada</h3><span class="badge badge-blue">25 alunos</span></div><div class="call-list">
+        <div class="student"><div><div class="name">Lucas Ferreira</div><small>VD-00126</small></div><div class="toggle"><button class="present">Presente</button><button>Falta</button></div></div>
+        <div class="student"><div><div class="name">Marina Alves</div><small>VD-00122</small></div><div class="toggle"><button class="present">Presente</button><button>Falta</button></div></div>
+        <div class="student"><div><div class="name">Gabriel Santos</div><small>VD-00118</small></div><div class="toggle"><button>Presente</button><button class="absent">Falta</button></div></div>
+      </div></div>
+    </section>
+
+    <section id="alertas" class="page hidden">
+      <div class="alert alert-error"><b>3 assistidos precisam de atenção imediata.</b> Os alertas são gerados a partir do limite de faltas definido pela equipe.</div>
+      <div class="card"><div class="table-wrap"><table><thead><tr><th>Assistido</th><th>Turma</th><th>Frequência</th><th>Motivo</th><th>Nível</th></tr></thead><tbody><tr><td><b>Lucas Ferreira</b></td><td>Sub-10</td><td>68%</td><td>5 faltas consecutivas</td><td><span class="badge badge-red">Alto</span></td></tr><tr><td><b>Ana Clara Souza</b></td><td>Sub-12</td><td>76%</td><td>4 faltas no mês</td><td><span class="badge badge-orange">Médio</span></td></tr><tr><td><b>João Pedro Lima</b></td><td>Sub-14</td><td>75%</td><td>Frequência abaixo do mínimo</td><td><span class="badge badge-orange">Médio</span></td></tr></tbody></table></div></div>
+    </section>
+
+    <section id="design" class="page hidden">
+      <div class="card" style="margin-bottom:18px"><div class="section-title"><h3>Paleta de cores</h3><span class="badge badge-blue">WCAG orientada</span></div><div class="ds-grid">
+        <div class="swatch"><div class="color" style="background:#1D4ED8"></div><div class="meta"><b>Primária</b><br>#1D4ED8</div></div>
+        <div class="swatch"><div class="color" style="background:#1E3A8A"></div><div class="meta"><b>Primária escura</b><br>#1E3A8A</div></div>
+        <div class="swatch"><div class="color" style="background:#F59E0B"></div><div class="meta"><b>Secundária</b><br>#F59E0B</div></div>
+        <div class="swatch"><div class="color" style="background:#16A34A"></div><div class="meta"><b>Sucesso</b><br>#16A34A</div></div>
+        <div class="swatch"><div class="color" style="background:#DC2626"></div><div class="meta"><b>Erro</b><br>#DC2626</div></div>
+      </div></div>
+      <div class="card" style="margin-bottom:18px"><h3>Tipografia</h3><h1 style="font-size:32px">H1 — Título principal</h1><h2 style="font-size:24px">H2 — Título de seção</h2><h3 style="font-size:20px">H3 — Subtítulo</h3><p>Texto padrão — 16 px</p><p style="font-size:14px">Texto pequeno — 14 px</p><p style="font-size:12px">Legenda — 12 px</p></div>
+      <div class="card"><h3>Componentes</h3><div class="component-row"><button class="btn btn-primary">Primário</button><button class="btn btn-secondary">Secundário</button><button class="btn btn-primary" style="background:#94a3b8" disabled>Desabilitado</button><div class="field sample-input"><label>E-mail</label><input placeholder="Digite seu e-mail"></div><span class="badge badge-green">Sucesso</span><span class="badge badge-red">Erro</span></div></div>
+    </section>
+  </main>
+</div>
+
+<div id="modalBack" class="modal-back hidden"><div class="modal"><h3 style="margin-top:0">Operação concluída</h3><p id="modalText">Cadastro salvo com sucesso.</p><div class="actions"><button class="btn btn-primary" onclick="closeModal()">Continuar</button></div></div></div>
+
+<script>
+function enterApp(){document.getElementById('loginScreen').classList.add('hidden');document.getElementById('system').classList.remove('hidden')}
+function logout(){document.getElementById('system').classList.add('hidden');document.getElementById('loginScreen').classList.remove('hidden')}
+const titles={dashboard:'Dashboard',assistidos:'Assistidos',cadastro:'Cadastrar assistido',frequencia:'Frequência',alertas:'Alertas de evasão',design:'Design System'};
+function showPage(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.getElementById('pageTitle').textContent=titles[id]||id;document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active')}
+function showSuccess(msg='Cadastro salvo com sucesso!'){document.getElementById('modalText').textContent=msg;document.getElementById('modalBack').classList.remove('hidden')}
+function closeModal(){document.getElementById('modalBack').classList.add('hidden')}
+</script>
+</body>
+</html>
