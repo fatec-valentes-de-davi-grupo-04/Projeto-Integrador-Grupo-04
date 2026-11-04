@@ -102,3 +102,13 @@ macOS
 .apple_double
 .LSOverride
 ._*
+# Dependencias
+node_modules/
+
+# Arquivos gerados
+dist/
+
+# Variaveis de ambiente
+.env
+.env.*
+!.env.example
